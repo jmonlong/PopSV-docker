@@ -92,6 +92,6 @@ RUN \
   apt-get install -y emacs \
   && git clone https://github.com/emacs-ess/ESS.git /root/.emacs.d/lisp/ess \
   && cd .emacs.d/lisp/ess \
-  && make \
-  && echo '(add-to-list 'load-path "~/.emacs.d/lisp/ess/lisp/")' >> /root/.emacs \
-  && echo '(load "ess-site")' >> /root/.emacs 
+  && make
+
+COPY .emacs /root/.emacs
