@@ -79,3 +79,9 @@ RUN mkdir -p /icgc/icgc-storage-client && \
 
 ## Set working directory
 WORKDIR /root
+
+## Install BatchJobs
+RUN install2.r --error \
+    -r "https://cran.rstudio.com" \
+    BatchJobs \
+  && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
