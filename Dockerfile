@@ -37,3 +37,6 @@ COPY bins-500bp.RData ./
 COPY bins-1kbp.RData ./
 COPY bins-2kbp.RData ./
 COPY bins-5kbp.RData ./
+
+## Clone GitHub Repo
+RUN git clone https://github.com/jmonlong/PopSV.git
