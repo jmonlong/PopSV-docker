@@ -89,9 +89,6 @@ RUN install2.r --error \
 ## Install Emacs
 RUN \
   apt-get update && \
-  apt-get install -y emacs \
-  && git clone https://github.com/emacs-ess/ESS.git /root/.emacs.d/lisp/ess \
-  && cd .emacs.d/lisp/ess \
-  && make
+  apt-get install -y emacs
 
 COPY .emacs /root/.emacs
