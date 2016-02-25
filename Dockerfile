@@ -1,5 +1,5 @@
 ## Pull base image
-FROM bioconductor/release_base
+FROM ubuntu:14.04
 
 
 #     ______________________   _____ __                                 _________            __ 
@@ -49,6 +49,27 @@ RUN apt-get update && \
   apt-get install -y emacs
 
 
+## Install R
+RUN add-apt-repository "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" && \
+    gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 && \
+    gpg -a --export E084DAB9 | apt-key add - && \
+    apt-get update && \
+    apt-get install -y r-base r-base-dev r-cran-rcurl libreadline-dev && \
+    apt-get install -y r-cran-getopt littler && \
+    apt-get install -y libcurl4-openssl-dev libxml2-dev && \
+    echo 'options(repos=structure(c(CRAN="http://cran.rstudio.com")))' >> /usr/lib/R/etc/Rprofile.site && \
+    echo "PKG_CXXFLAGS = '-std=c++11'" >> /usr/lib/R/etc/Makeconf.site && \
+    echo "R_LIBS=\${R_LIBS-'/usr/local/lib/R/site-library:/usr/local/lib/R/library:/usr/lib/R/library'}" >> /usr/lib/R/etc/Renviron && \
+    ln -s /usr/share/doc/littler/examples/install2.r /usr/local/bin/install2.r && \
+    ln -s /usr/share/doc/littler/examples/installGithub.r /usr/local/bin/installGithub.r && \
+    ln -s /usr/share/doc/littler/examples/install.r /usr/local/bin/install.r && \
+    echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r && \
+    install.r docopt && \
+    rm -rf /tmp/downloaded_packages/ /tmp/*.rds /var/tmp/* && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
+
+
 #     ____                _____ _    __
 #    / __ \ ____   ____  / ___/| |  / /
 #   / /_/ // __ \ / __ \ \__ \ | | / / 
@@ -79,7 +100,9 @@ COPY bins-2kbp.RData ./
 COPY bins-5kbp.RData ./
 
 ## Clone GitHub Repo
-RUN git clone https://github.com/jmonlong/PopSV.git -b icgc
+RUN apt-get update \
+      && apt-get install -y git \
+      && git clone https://github.com/jmonlong/PopSV.git -b icgc
 
 
 ## Install ESS mode
