@@ -43,12 +43,12 @@ RUN mkdir -p /icgc/icgc-storage-client && \
     tar xvz --strip-components 1
 
 
-## Install AWS Command Line Interface
+## Install OpenStack/AWS Command Line Interface
 RUN apt-get update && \
   apt-get install -y python-pip
 
 RUN mkdir -p /root/.aws && \
-    pip install awscli 
+    pip install awscli python-openstackclient
 
 ## Install Emacs
 RUN apt-get update && \
