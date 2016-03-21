@@ -45,7 +45,7 @@ RUN mkdir -p /icgc/icgc-storage-client && \
 
 ## Install OpenStack/AWS Command Line Interface
 RUN apt-get update && \
-  apt-get install -y python-pip
+  apt-get install -y python-dev python-pip
 
 RUN mkdir -p /root/.aws && \
     pip install awscli python-openstackclient
