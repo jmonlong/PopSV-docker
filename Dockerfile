@@ -39,7 +39,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 RUN mkdir -p /icgc/icgc-storage-client && \
     cd /icgc/icgc-storage-client && \
-    wget -qO- https://seqwaremaven.oicr.on.ca/artifactory/dcc-release/org/icgc/dcc/icgc-storage-client/[RELEASE]/icgc-storage-client-[RELEASE]-dist.tar.gz | \
+    wget -qO- https://dcc.icgc.org/api/v1/ui/software/icgc-storage-client/latest | \
     tar xvz --strip-components 1
 
 
